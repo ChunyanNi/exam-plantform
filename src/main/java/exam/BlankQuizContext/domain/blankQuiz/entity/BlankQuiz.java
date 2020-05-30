@@ -1,23 +1,23 @@
 package exam.BlankQuizContext.domain.blankQuiz.entity;
 
+import exam.shared.ValueObject;
 import exam.paperContext.domain.model.paper.IllegalScoreException;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Objects;
 
 @Getter
 @Setter
 public class BlankQuiz implements ValueObject<BlankQuiz> {
-    private String quizId;
+    private BlankQuizId blankQuizId;
     private int score;
     private boolean isValid;
 
-    public BlankQuiz(String quizId, int score) {
+    public BlankQuiz(BlankQuizId blankQuizId, int score) {
         if(score > 100 || score < 0) {
             throw new IllegalScoreException(score);
         }
-        this.quizId = quizId;
+        this.blankQuizId = blankQuizId;
         this.score = score;
         this.isValid = true;
     }
@@ -33,11 +33,11 @@ public class BlankQuiz implements ValueObject<BlankQuiz> {
         if (o == null || getClass() != o.getClass()) return false;
         BlankQuiz blankQuiz = (BlankQuiz) o;
         return score == blankQuiz.score &&
-                Objects.equals(quizId, blankQuiz.quizId);
+                Objects.equals(blankQuizId, blankQuiz.blankQuizId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quizId, score);
+        return Objects.hash(blankQuizId, score);
     }
 }
